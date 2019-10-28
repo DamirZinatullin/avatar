@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ suit.title }}
+{% endblock %}
+
+{% block suit_title %}
+    {{ suit.title }}
+{% endblock %}
+
+{% block suit %}
+    <div class='fabrics'>
+        Материалы:
+        {% for fabric in fabrics %}
+            <a href="{{ url_for('fabric_detail', slug=fabric.slug) }}">
+                <span class="label label-primary">{{ fabric.name }}</span>
+            </a>
+
+        {% endfor %}
+    </div>
+    Информация о костюме:
+    {{ suit.data }}
+{% endblock %}
