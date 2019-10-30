@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+suits index page
+{% endblock %}
+
+{% block content_title %}
+<h1>
+    suits index page
+</h1>
+{% endblock %}
+
+{% block content %}
+{% for suit in suits %}
+<p>
+    <a href="{{ url_for('suits.suit_detail', slug=suit.slug) }}">{{ suit.title
+        }}</a>
+</p>
+{% endfor %}
+{% endblock %}
