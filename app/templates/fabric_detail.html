@@ -4,20 +4,17 @@
     {{ fabric.name }} suits
 {% endblock %}
 
-{% block suit_title %}
-    Suits for "{{ fabric.name }}" fabric:
+{% block content_title %}
+    Suits with "{{ fabric.name }}" fabric:
 {% endblock %}
 
-{% block suit %}
+{% block content %}
     Костюмы:
     {% for suit in suits %}
-        <div class="suit"><a href="{{ url_for('suit_detail', slug=suit.slug) }}">
+        <div class="suit"><a href="{{ url_for('suits.suit_detail', slug=suit.slug) }}">
             {{ suit.title }}</a>
         </div>
-        <span class="label label-primary">{{ suit.title }}</span>
     {% endfor %}
-    Информация о костюме:
-    {{ suit.data }}
 {% endblock %}
 
 title

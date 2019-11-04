@@ -32,7 +32,7 @@ suit_consultants = db.Table('suit_consultants',
 
 class Suit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(140))
+    title = db.Column(db.String(140), nullable=False)
     data = db.Column(db.String(250))
     slug = db.Column(db.String(140), unique=True)
     created = db.Column(db.DateTime, default=datetime.now())

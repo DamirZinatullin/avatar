@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Create new suite
+    Edit suit
 {% endblock %}
 
-{% block suit_title %}
-     New suit
+{% block content_title %}
+     Edit suit
 {% endblock %}
 
-{% block suit %}
+{% block content %}
     <div class="col-md-6">
-        <form action="{{ url_for('create_suit') }}" method="post">
+        <form action="{{ url_for('suits.edit_suit', slug=suit.slug) }}" method="post">
             {% for field in form %}
                 <div class="form-group">
                     {{ field.label(class='control-label') }}
                     {{ field(class='form-control') }}
                 </div>
             {% endfor %}
-            <button type="submit" class="btn btn-success">Create</button>
+            <button type="submit" class="btn btn-success">Edit</button>
         </form>
     </div>
 

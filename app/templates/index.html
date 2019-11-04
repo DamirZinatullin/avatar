@@ -3,16 +3,12 @@
 {% block title %}
 {% endblock %}
 
-{% block suit_title %}
+{% block content_title %}
     <h1>
         Avatar project
     </h1>
 {% endblock %}
 
-{% block suit %}
-    {% for suit in suits %}
-        <p>
-            <a href="{{ url_for('suit_detail', slug=suit.slug) }}">{{ suit.title }}</a>
-        </p>
-    {% endfor %}
+{% block content %}
+    About Avatar project
 {% endblock %}
