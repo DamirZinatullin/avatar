@@ -4,6 +4,8 @@ from app import db
 from models import Suit, Fabric
 from forms import SuitForm
 
+from flask_security import login_required
+
 suits = Blueprint('suits', __name__, template_folder='templates')
 
 
@@ -24,6 +26,7 @@ def index():
 
 
 @suits.route('/create', methods=['POST', 'GET'])
+@login_required
 def create_suit():
     if request.method == 'POST':
         title = request.form['title']
@@ -42,6 +45,7 @@ def create_suit():
 
 
 @suits.route('/<slug>/edit', methods=['POST', 'GET'])
+@login_required
 def edit_suit(slug):
     suit = Suit.query.filter(Suit.slug == slug).first()
     if request.method == "POST":
