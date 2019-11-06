@@ -35,7 +35,12 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('suits.index') }}">Костюмы</a>
                 </li>
-                <li><a href="{{ url_for('suits.create_suit') }}">Создать костюм</a>
+<!--                <li><a href="{{ url_for('suits.create_suit') }}">+Создать костюм</a>-->
+<!--                </li>-->
+                <li>
+                    {% if current_user.has_role('admin')%}
+                    <a href="/admin">Admin</a>
+                    {% endif %}
                 </li>
             </ul>
 
