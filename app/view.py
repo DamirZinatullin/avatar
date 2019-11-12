@@ -19,3 +19,8 @@ def fabric_detail(slug):
     fabric = Fabric.query.filter(Fabric.slug == slug).first()
     suits = fabric.suits.all()
     return render_template('fabric_detail.html', fabric=fabric, suits=suits)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

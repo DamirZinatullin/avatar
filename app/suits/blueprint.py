@@ -47,7 +47,7 @@ def create_suit():
 @suits.route('/<slug>/edit', methods=['POST', 'GET'])
 @login_required
 def edit_suit(slug):
-    suit = Suit.query.filter(Suit.slug == slug).first()
+    suit = Suit.query.filter(Suit.slug == slug).first_or_404()
     if request.method == "POST":
         form = SuitForm(formdata=request.form, obj=suit)
         form.populate_obj(suit)
@@ -59,7 +59,7 @@ def edit_suit(slug):
 
 @suits.route('/<slug>')
 def suit_detail(slug):
-    suit = Suit.query.filter(Suit.slug == slug).first()
+    suit = Suit.query.filter(Suit.slug == slug).first_or_404()
     fabrics = suit.fabrics
     return render_template('/suits/suit_detail.html', suit=suit,
                            fabrics=fabrics)
