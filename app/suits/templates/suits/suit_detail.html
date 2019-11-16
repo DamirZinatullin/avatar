@@ -9,15 +9,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class='fabrics'>
-        Материалы:
-        {% for fabric in fabrics %}
-            <a href="{{ url_for('fabric_detail', slug=fabric.slug) }}">
-                <span class="label label-primary">{{ fabric.name }}</span>
-            </a>
+<ul>
+    <li>
+        Материал:
+        {{ suit.fabric }}
+    </li>
+    <li>Информация о костюме:
+        {{ suit.data }}
+    </li>
+    <li>Стоимость:
+        {{ suit.price }}
+    </li>
 
-        {% endfor %}
-    </div>
-    Информация о костюме:
-    {{ suit.data }}
+</ul>
 {% endblock %}

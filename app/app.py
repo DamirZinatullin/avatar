@@ -49,7 +49,7 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 
 
 class SuitAdminView(AdminMixin, BaseModelView):
-    form_columns = ['title', 'fabrics', 'price']
+    form_columns = ['title', 'fabric', 'price']
 
 
 class FabricAdminView(AdminMixin, BaseModelView):

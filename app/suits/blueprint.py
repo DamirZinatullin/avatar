@@ -60,6 +60,6 @@ def edit_suit(slug):
 @suits.route('/<slug>')
 def suit_detail(slug):
     suit = Suit.query.filter(Suit.slug == slug).first_or_404()
-    fabrics = suit.fabrics
+    fabric = suit.fabric
     return render_template('/suits/suit_detail.html', suit=suit,
-                           fabrics=fabrics)
+                           fabric=fabric)
