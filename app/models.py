@@ -9,28 +9,6 @@ def slugify(s):
     return re.sub(pattern, '-', s)
 
 
-# suit_fabrics = db.Table('suit_fabrics',
-#                         db.Column('suit_id', db.Integer,
-#                                   db.ForeignKey('suit.id')),
-#                         db.Column('fabric_id', db.Integer,
-#                                   db.ForeignKey('fabric.id'))
-#                         )
-#
-# suit_tailors = db.Table('suit_tailors',
-#                         db.Column('suit_id', db.Integer,
-#                                   db.ForeignKey('suit.id')),
-#                         db.Column('tailor_id', db.Integer,
-#                                   db.ForeignKey('tailor.id'))
-#                         )
-
-# suit_consultants = db.Table('suit_consultants',
-#                             db.Column('suit_id', db.Integer,
-#                                       db.ForeignKey('suit.id')),
-#                             db.Column('consultant_id', db.Integer,
-#                                       db.ForeignKey('consultant.id'))
-#                             )
-#
-
 class Suit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140), nullable=False)
@@ -40,7 +18,6 @@ class Suit(db.Model):
     price = db.Column(db.DECIMAL(9, 2))
     fabric_id = db.Column(db.Integer, db.ForeignKey('fabric.id'))
     tailor_id = db.Column(db.Integer, db.ForeignKey('tailor.id'))
-    consultant_id = db.Column(db.Integer, db.ForeignKey('consultant.id'))
     garment_id = db.Column(db.Integer, db.ForeignKey('garment.id'))
     scan_id = db.Column(db.Integer, db.ForeignKey('scan.id'))
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
@@ -73,6 +50,9 @@ class Fabric(db.Model):
     flax = db.Column(db.Integer)
     cashmere = db.Column(db.Integer)
     cost = db.Column(db.DECIMAL(9, 2))
+    color_id = db.Column(db.Integer, db.ForeignKey('color.id'))
+    pattern_id = db.Column(db.Integer, db.ForeignKey('pattern.id'))
+    price_bracket_id = db.Column(db.Integer, db.ForeignKey('price_bracket.id'))
     suits = db.relationship('Suit', backref='fabric')
 
     def __init__(self, *args, **kwargs):
@@ -83,6 +63,47 @@ class Fabric(db.Model):
         return 'Fabric id:{}, name: {}, cost:{}, wool: {},' \
                ' elastane:{} '.format(self.id, self.name, self.cost, self.wool,
                                       self.elastane)
+
+
+class Color(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    fabrics = db.relationship('Fabric', backref='color')
+
+    def __init__(self, *args, **kwargs):
+        super(Color, self, *args, **kwargs).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Color id: {}, name: {}'.format(self.id, self.name)
+
+
+class Pattern(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    fabrics = db.relationship('Fabric', backref='pattern')
+
+    def __init__(self, *args, **kwargs):
+        super(Pattern, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Pattern id:{}, name: {}'.format(
+            self.id, self.name)
+
+
+class PriceBracket(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    fabrics = db.relationship('Fabric', backref='price_bracket')
+
+    def __init__(self, *args, **kwargs):
+        super(PriceBracket, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Price_bracket id:{}, name: {}'.format(
+            self.id, self.name)
 
 
 class Garment(db.Model):
@@ -105,6 +126,7 @@ class Scan(db.Model):
     weight = db.Column(db.DECIMAL(9, 2))
     date = db.Column(db.DateTime, default=datetime.now())
     data = db.Column(db.Text)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     suits = db.relationship('Suit', backref='scan')
 
     def __init__(self, *args, **kwargs):
@@ -125,6 +147,8 @@ class Tailor(db.Model):
     email = db.Column(db.String(140))
     date = db.Column(db.DateTime, default=datetime.now())
     suits = db.relationship('Suit', backref='tailor')
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
     def __init__(self, *args, **kwargs):
         super(Tailor, self).__init__(*args, **kwargs)
@@ -142,8 +166,10 @@ class Consultant(db.Model):
     patronymic = db.Column(db.String(140))
     phone = db.Column(db.String(20))
     email = db.Column(db.String(140))
+    shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     date = db.Column(db.DateTime, default=datetime.now())
-    suits = db.relationship('Suit', backref='consultant')
 
     def __init__(self, *args, **kwargs):
         super(Consultant, self).__init__(*args, **kwargs)
@@ -154,11 +180,56 @@ class Consultant(db.Model):
             self.id, self.name, self.surname)
 
 
+class Manager(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    surname = db.Column(db.String(140))
+    patronymic = db.Column(db.String(140))
+    phone = db.Column(db.String(20))
+    email = db.Column(db.String(140))
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    date = db.Column(db.DateTime, default=datetime.now())
+
+    def __init__(self, *args, **kwargs):
+        super(Manager, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Manager id:{}, name: {}, surname: {}'.format(
+            self.id, self.name, self.surname)
+
+
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    surname = db.Column(db.String(140))
+    patronymic = db.Column(db.String(140))
+    phone = db.Column(db.String(20))
+    email = db.Column(db.String(140))
+    date = db.Column(db.DateTime, default=datetime.now())
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    scans = db.relationship('Scan', backref='customer')
+
+    def __init__(self, *args, **kwargs):
+        super(Customer, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Customer id:{}, name: {}, surname: {}'.format(
+            self.id, self.name, self.surname)
+
+
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40))
     suits = db.relationship('Suit', backref='status')
     orders = db.relationship('Order', backref='status')
+    tailors = db.relationship('Tailor', backref='status')
+    consultants = db.relationship('Consultant', backref='status')
+    managers = db.relationship('Manager', backref='status')
+    customers = db.relationship('Customer', backref='status')
 
     def __init__(self, *args, **kwargs):
         super(Status, self).__init__(*args, **kwargs)
@@ -170,7 +241,7 @@ class Status(db.Model):
 
 class Kit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    suits = db.relationship('Suit', backref='kit')
+    suit_id = db.Column(db.Integer, db.ForeignKey('suit.id'))
 
     def __init__(self, *args, **kwargs):
         super(Status, self).__init__(*args, **kwargs)
@@ -182,11 +253,13 @@ class Kit(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'))
     create_date = db.Column(db.DateTime, default=datetime.now())
     closing_date = db.Column(db.DateTime)
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
     price = db.Column(db.DECIMAL(9, 2))
     suits = db.relationship('Suit', backref='order')
+    delivery_type_id = db.Column(db.Integer, db.ForeignKey('delivery_type.id'))
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
@@ -194,6 +267,19 @@ class Order(db.Model):
 
     def __repr__(self):
         return 'Order id:{}'.format(self.id)
+
+
+class DeliveryType(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(40))
+    orders = db.relationship('Order', backref='delivery_type')
+
+    def __init__(self, *args, **kwargs):
+        super(DeliveryType, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Delivery type id:{}, name: {}'.format(self.id, self.name)
 
 
 class Priority(db.Model):
@@ -206,7 +292,23 @@ class Priority(db.Model):
         self.slug = slugify(self.name)
 
     def __repr__(self):
-        return 'Priority id:{}, priority name: {}'.format(self.id, self.name)
+        return 'Priority id:{}, name: {}'.format(self.id, self.name)
+
+
+class Shop(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(40))
+    address = db.Column(db.String(150))
+    phone = db.Column(db.String(20))
+    consultants = db.relationship('Consultant', backref='shop')
+    orders = db.relationship('Order', backref='shop')
+
+    def __init__(self, *args, **kwargs):
+        super(Shop, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'Shop id:{}, address: {}'.format(self.id, self.address)
 
 
 ### Flask Security
@@ -231,3 +333,7 @@ class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(100), unique=True)
     description = db.Column(db.String(255))
+    tailors = db.relationship('Tailor', backref='role')
+    consultants = db.relationship('Consultant', backref='role')
+    managers = db.relationship('Manager', backref='role')
+    customers = db.relationship('Customer', backref='role')
