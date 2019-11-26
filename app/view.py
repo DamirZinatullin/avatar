@@ -1,7 +1,9 @@
 from app import app
-from flask import render_template, request
+from app import db
+from flask import render_template, request, redirect, url_for
+from forms import RegisterForm
 
-from models import Suit, Fabric, Tailor
+from models import Suit, Fabric, Tailor, User
 
 
 @app.route('/')
@@ -12,6 +14,27 @@ def index():
         return render_template('/suits/index.html', suits=suits)
     else:
         return render_template('index.html')
+
+
+@app.route('/register')
+def register():
+    if request.method == 'POST':
+        name = request.form['name']
+        surname = request.form['surname']
+        phone = request.form['phone']
+        email = request.form['email']
+        password = request.form['password']
+
+        try:
+            user = User(name=name, surname=surname, phone=phone, email=email,
+                        password=password)
+            db.session.add(user)
+            db.session.commit()
+        except:
+            print('Something wrong')
+        return redirect(url_for('index'))
+    form = RegisterForm()
+    return render_template('register.html', form=form)
 
 
 @app.route('/fabric/<slug>')

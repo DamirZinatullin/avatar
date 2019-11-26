@@ -21,7 +21,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ url_for('index') }}">Avatar</a>
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+        <img src="./static/images/brand.jpg" width="30" height="30"
+             class="d-inline-block align-top" alt="">Avatar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,10 +34,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ url_for('suits.index') }}">Костюмы
+                    <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                {% if current_user.has_role('admin') %}
+                <a class="nav-link" href="/admin">Admin</a>
+                {% endif %}
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#"
@@ -57,15 +62,22 @@
                    aria-disabled="true">Disabled</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search"
-                   placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0"
-                    type="submit">
-                Search
-            </button>
-        </form>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{{ url_for_security('login') }}">Войти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{{ url_for('register') }}" tabindex="-1">Регистрация</a>
+          </li>
+        </ul>
     </div>
+
 </nav>
 <div class="container">
     <div align="center">
@@ -76,10 +88,7 @@
     </div>
     {% block content %}
     {% endblock %}
-
-
 </div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -91,5 +100,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Fixed bottom</a>
+</nav>
+
+<!--<nav class="navbar navbar-dark bg-dark">-->
+<!--  <a class="navbar-brand" href="#">Fixed bottom</a>-->
+</nav>
 </body>
 </html>
