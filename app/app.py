@@ -12,9 +12,12 @@ from flask_admin.contrib.sqla import ModelView
 from flask_security import SQLAlchemyUserDatastore
 from flask_security import Security
 from flask_security import current_user
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
+mail = Mail()
+mail.init_app(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

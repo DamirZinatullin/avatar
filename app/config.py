@@ -7,3 +7,5 @@ class Configuration(object):
     ### flask-security ###
     SECURITY_PASSWORD_SALT = 'salt'
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
+    SECURITY_REGISTERABLE = True
+    SECURITY_EMAIL_SENDER = 'no-reply@localhost'

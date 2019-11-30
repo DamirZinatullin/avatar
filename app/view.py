@@ -16,32 +16,35 @@ def index():
         return render_template('index.html')
 
 
-@app.route('/register', methods=['POST', 'GET'])
-def register():
-    if request.method == 'POST':
-        name = request.form['name']
-        surname = request.form['surname']
-        phone = request.form['phone']
-        email = request.form['email']
-        password = request.form['password']
-
-        try:
-            user = User(name=name, surname=surname, phone=phone, email=email,
-                        password=password)
-            db.session.add(user)
-            db.session.commit()
-        except:
-            print('Something wrong')
-        return redirect(url_for('index'))
-    form = RegisterForm()
-    return render_template('register.html', form=form)
+# @app.route('/register', methods=['POST', 'GET'])
+# def register():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         surname = request.form['surname']
+#         phone = request.form['phone']
+#         email = request.form['email']
+#         password = request.form['password']
+#
+#         try:
+#             user = User(name=name, surname=surname, phone=phone, email=email,
+#                         password=password)
+#             db.session.add(user)
+#             db.session.commit()
+#         except:
+#             print('Something wrong')
+#         return redirect(url_for('index'))
+#     form = RegisterForm()
+#     return render_template('register.html', form=form)
+# @app.route('/register/', methods=['GET', 'POST'])
+# def register():
+#     return render_template('/security/register_user.html')
 
 
 @app.route('/fabric/<slug>')
 def fabric_detail(slug):
     fabric = Fabric.query.filter(Fabric.slug == slug).first()
     suits = fabric.suits.all()
-    return render_template('fabric_detail.html', fabric=fabric, suits=suits)
+    return render_template('fabric_detail.html', fabric=fabric, suits=sufits)
 
 
 @app.errorhandler(404)
