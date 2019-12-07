@@ -13,7 +13,6 @@
           crossorigin="anonymous">
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
     <title>
         {% block title %}
         {% endblock %} | Avatar
@@ -22,7 +21,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{{ url_for('index') }}">
-        <img src="./static/images/brand.jpg" width="30" height="30"
+        <img src="../static/images/brand.jpg" width="30" height="30"
              class="d-inline-block align-top" alt="">Avatar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -35,7 +34,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url_for('suits.index') }}">Костюмы
-                    <span class="sr-only">(current)</span></a>
+                </a>
             </li>
             <li class="nav-item">
                 {% if current_user.has_role('admin') %}
@@ -46,28 +45,22 @@
                 <a class="nav-link dropdown-toggle" href="#"
                    id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    Выберите город
                 </a>
                 <div class="dropdown-menu"
                      aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else
-                        here</a>
+                    <a class="dropdown-item" href="#">Москва</a>
+                    <a class="dropdown-item" href="#">Санкт-Петербург</a>
+                    <a class="dropdown-item" href="#">Екатеринбург</a>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1"
-                   aria-disabled="true">Disabled</a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Active</a>
+            <a class="nav-link text-light" href="{{ url_for('addresses') }}">Адреса</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link text-light" href="{{ url_for('shipping_and_payment') }}">Доставка и оплата</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="{{ url_for_security('login') }}">Войти</a>
@@ -79,16 +72,40 @@
     </div>
 
 </nav>
-<div class="container">
+<div class="offset-md-1" style="height: 20px">
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('suits.man_suits') }}"><u>Мужские костюмы</u></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('suits.woman_suits') }}"><u>Женские костюмы</u></a>
+  </li>
+</ul>
+</div>
+<hr color="#C0C0C0">
+<div id="page-wrap" class="container">
     <div align="center">
         <h1>
             {% block content_title %}
             {% endblock %}
         </h1>
-    </div>
+    </div >
     {% block content %}
     {% endblock %}
 </div>
+<footer>
+    <nav class="navbar navbar-dark bg-dark">
+        <div id="social">
+            <ul>
+                <li>Вконтакте</li>
+                <li>Инстаграм</li>
+            </ul>
+        </div>
+        <div id="rights">
+            Все права защищены &copy;
+        </div>
+    </nav>
+</footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -100,12 +117,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Fixed bottom</a>
-</nav>
-
-<!--<nav class="navbar navbar-dark bg-dark">-->
-<!--  <a class="navbar-brand" href="#">Fixed bottom</a>-->
-</nav>
 </body>
 </html>

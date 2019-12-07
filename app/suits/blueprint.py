@@ -44,6 +44,16 @@ def create_suit():
     return render_template('suits/create_suit.html', form=form)
 
 
+@suits.route('/man')
+def man_suits():
+    return render_template('/suits/man.html')
+
+
+@suits.route('/woman')
+def woman_suits():
+    return render_template('/suits/woman.html')
+
+
 @suits.route('/<slug>/edit', methods=['POST', 'GET'])
 @login_required
 def edit_suit(slug):

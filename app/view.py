@@ -16,28 +16,14 @@ def index():
         return render_template('index.html')
 
 
-# @app.route('/register', methods=['POST', 'GET'])
-# def register():
-#     if request.method == 'POST':
-#         name = request.form['name']
-#         surname = request.form['surname']
-#         phone = request.form['phone']
-#         email = request.form['email']
-#         password = request.form['password']
-#
-#         try:
-#             user = User(name=name, surname=surname, phone=phone, email=email,
-#                         password=password)
-#             db.session.add(user)
-#             db.session.commit()
-#         except:
-#             print('Something wrong')
-#         return redirect(url_for('index'))
-#     form = RegisterForm()
-#     return render_template('register.html', form=form)
-# @app.route('/register/', methods=['GET', 'POST'])
-# def register():
-#     return render_template('/security/register_user.html')
+@app.route('/shipping_and_payment')
+def shipping_and_payment():
+    return render_template('shipping_and_payment.html')
+
+
+@app.route('/addresses')
+def addresses():
+    return render_template('addresses.html')
 
 
 @app.route('/fabric/<slug>')

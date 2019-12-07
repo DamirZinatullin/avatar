@@ -13,6 +13,7 @@ class Suit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140), nullable=False)
     data = db.Column(db.String(250))
+    gender = db.Column(db.String(20))
     slug = db.Column(db.String(140), unique=True)
     created = db.Column(db.DateTime, default=datetime.now())
     price = db.Column(db.DECIMAL(9, 2))
@@ -297,7 +298,7 @@ class Priority(db.Model):
 
 class Shop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    city = db.Column(db.String(40))
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'))
     address = db.Column(db.String(150))
     phone = db.Column(db.String(20))
     consultants = db.relationship('Consultant', backref='shop')
@@ -309,6 +310,19 @@ class Shop(db.Model):
 
     def __repr__(self):
         return 'Shop id:{}, address: {}'.format(self.id, self.address)
+
+
+class City(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250))
+    shops = db.relationship('Shop', backref='city')
+
+    def __init__(self, *args, **kwargs):
+        super(City, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
+
+    def __repr__(self):
+        return 'City id:{}, name: {}'.format(self.id, self.address)
 
 
 ### Flask Security

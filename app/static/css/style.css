@@ -1,3 +1,21 @@
-.navbar {
-         border-radius: 0;
+html, body {
+    height: 100%
 }
+
+body {
+    display: flex;
+    flex-direction: column
+}
+
+#page-wrap {
+    flex-grow: 1;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+footer #rights {
+    color: white;
+}
+
