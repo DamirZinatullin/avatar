@@ -9,13 +9,34 @@ body {
 
 #page-wrap {
     flex-grow: 1;
+    padding-bottom: 20px;
 }
 
 .navbar {
     border-radius: 0px;
 }
 
-footer #rights {
-    color: white;
+footer .navbar {
+    align-items: flex-start;
 }
 
+footer div {
+    margin-bottom: 10px;
+    text-align:left;
+    width: 33.33%;
+}
+
+footer ul {
+
+}
+
+footer li {
+    height: 24px;
+}
+
+hr{
+    width: 100%;
+    color: #FFFF00;
+    height: 1px;
+    margin: 0px;
+}

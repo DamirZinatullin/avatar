@@ -56,53 +56,93 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url_for('addresses') }}">Адреса</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url_for('shipping_and_payment') }}">Доставка и оплата</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url_for_security('login') }}">Войти</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{{ url_for_security('register') }}" tabindex="-1">Регистрация</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{{ url_for('addresses') }}">Адреса</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{{ url_for('shipping_and_payment') }}">Доставка и
+                    оплата</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{{ url_for_security('login') }}">Войти</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light"
+                   href="{{ url_for_security('register') }}" tabindex="-1">Регистрация</a>
+            </li>
         </ul>
     </div>
 
 </nav>
-<div class="offset-md-1" style="height: 20px">
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('suits.man_suits') }}"><u>Мужские костюмы</u></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('suits.woman_suits') }}"><u>Женские костюмы</u></a>
-  </li>
-</ul>
+<div class="offset-md-1" style="height: 40px">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('suits.man_suits') }}"><u>Мужские
+                костюмы</u></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('suits.woman_suits') }}"><u>Женские
+                костюмы</u></a>
+        </li>
+    </ul>
 </div>
-<hr color="#C0C0C0">
+<hr>
 <div id="page-wrap" class="container">
     <div align="center">
         <h1>
             {% block content_title %}
             {% endblock %}
         </h1>
-    </div >
+    </div>
     {% block content %}
     {% endblock %}
 </div>
 <footer>
-    <nav class="navbar navbar-dark bg-dark">
-        <div id="social">
-            <ul>
-                <li>Вконтакте</li>
-                <li>Инстаграм</li>
+    <nav class="navbar navbar-dark bg-dark text-light nav-justified">
+        <div>
+            <ul class="nav flex-column"><span
+                    style="margin-left:16px">Компания</span>
+                <li>
+                    <u><a class="nav-link text-light" href="#">О нас</a></u>
+                </li>
+                <li>
+                    <u><a class="nav-link text-light" href="#">Договор
+                        оферты</a></u>
+                </li>
+                <li>
+                    <u><a class="nav-link text-light" href="#">Конфиденциальная
+                        информация</a></u>
+                </li>
+                <li>
+                    <u><a class="nav-link text-light" href="#">Отзывы</a></u>
+                </li>
             </ul>
         </div>
-        <div id="rights">
-            Все права защищены &copy;
+        <div>
+            <ul class="nav flex-column"><span style="margin-left:16px">Информация</span>
+                <li><u><a class="nav-link text-light" href="#">О новой
+                    технологии</a></u></li>
+                <li><u><a class="nav-link text-light" href="#">Гид по стилю</a></u>
+                </li>
+                <li><u><a class="nav-link text-light" href="#">Оформление
+                    заказа</a></u></li>
+                <li><u><a class="nav-link text-light" href="#">Доставка и
+                    оплата</a></u></li>
+                <li><u><a class="nav-link text-light" href="#">Обмен и
+                    возврат</a></u></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="nav flex-column"><span
+                    style="margin-left:16px">Контакты</span>
+                <li><u><a class="nav-link text-light" href="#">Единая
+                    справочная служба</a></u></li>
+                <li><u><a class="nav-link text-light" href="#">Центральный
+                    офис</a></u></li>
+            </ul>
         </div>
     </nav>
 </footer>
