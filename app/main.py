@@ -5,4 +5,4 @@ import view
 
 app.register_blueprint(suits, url_prefix='/suits')
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000)

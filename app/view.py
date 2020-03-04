@@ -1,6 +1,6 @@
 from app import app
 from app import db
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, make_response
 from forms import RegisterForm
 
 from models import Suit, Fabric, Tailor, User
@@ -14,6 +14,16 @@ def index():
         return render_template('/suits/index.html', suits=suits)
     else:
         return render_template('index.html')
+
+
+@app.route('/city/<city>', methods=['POST', 'GET'])
+def set_city(city):
+    city_dict = {'msc': 'Москва', 'spb': 'Санкт-Петербург',
+                 'ekb': 'Екатеринбург'}
+    res = make_response(redirect('/'))
+    if city_dict.get(city):
+        res.set_cookie('city', city_dict.get(city))
+    return res
 
 
 @app.route('/shipping_and_payment')

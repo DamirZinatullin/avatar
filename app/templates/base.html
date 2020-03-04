@@ -45,13 +45,20 @@
                 <a class="nav-link dropdown-toggle" href="#"
                    id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Выберите город
+                    {% if request.cookies.get('city') %}
+                        {{ request.cookies.get('city') }}
+                    {% else %}
+                        Выберите город
+                    {% endif %}
                 </a>
                 <div class="dropdown-menu"
                      aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Москва</a>
-                    <a class="dropdown-item" href="#">Санкт-Петербург</a>
-                    <a class="dropdown-item" href="#">Екатеринбург</a>
+                    <a class="dropdown-item"
+                       href="{{ url_for('set_city', city='msc') }}">Москва</a>
+                    <a class="dropdown-item"
+                       href="{{ url_for('set_city', city='spb') }}">Санкт-Петербург</a>
+                    <a class="dropdown-item"
+                       href="{{ url_for('set_city', city='ekb') }}">Екатеринбург</a>
                 </div>
             </li>
         </ul>
@@ -66,8 +73,13 @@
                     оплата</a>
             </li>
             <li class="nav-item">
+                {% if current_user.is_anonymous %}
                 <a class="nav-link text-light"
                    href="{{ url_for_security('login') }}">Войти</a>
+                {% else %}
+                <a class="nav-link text-light"
+                   href="{{ url_for_security('logout') }}">Выйти</a>
+                {% endif %}
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light"
@@ -104,7 +116,7 @@
     <nav class="navbar navbar-dark bg-dark text-light nav-justified">
         <div>
             <ul class="nav flex-column"><span
-                    style="margin-left:16px">Компания</span>
+                    style="margin-left:16px"><b>Компания</b></span>
                 <li>
                     <u><a class="nav-link text-light" href="#">О нас</a></u>
                 </li>
@@ -122,7 +134,7 @@
             </ul>
         </div>
         <div>
-            <ul class="nav flex-column"><span style="margin-left:16px">Информация</span>
+            <ul class="nav flex-column"><span style="margin-left:16px"><b>Информация</b></span>
                 <li><u><a class="nav-link text-light" href="#">О новой
                     технологии</a></u></li>
                 <li><u><a class="nav-link text-light" href="#">Гид по стилю</a></u>
@@ -137,12 +149,22 @@
         </div>
         <div>
             <ul class="nav flex-column"><span
-                    style="margin-left:16px">Контакты</span>
+                    style="margin-left:16px"><b>Контакты</b></span>
                 <li><u><a class="nav-link text-light" href="#">Единая
                     справочная служба</a></u></li>
                 <li><u><a class="nav-link text-light" href="#">Центральный
                     офис</a></u></li>
             </ul>
+            <div class="social">
+                <a href="http://instagram.com" target="_blank"><img
+                        src="../static/images/social/insta.png" alt=""></a>
+                <a href="http://vk.com" target="_blank"><img
+                        src="../static/images/social/vk.png" alt=""></a>
+                <a href="http://ok.ru" target="_blank"><img
+                        src="../static/images/social/ok.png" alt=""></a>
+                <a href="http://facebook.com" target="_blank"><img
+                        src="../static/images/social/facebook.png" alt=""></a>
+            </div>
         </div>
     </nav>
 </footer>

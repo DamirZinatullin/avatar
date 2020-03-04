@@ -40,3 +40,13 @@ hr{
     height: 1px;
     margin: 0px;
 }
+
+.social {
+    margin-top: 20px;
+    margin-left: 16px;
+}
+
+.social img {
+    width: 30px;
+    height: 30px;
+}
