@@ -1,12 +1,98 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Мужские костюмы
+Мужские костюмы
 {% endblock %}
 
 {% block content_title %}
-    Мужские костюмы
+Конструктор мужских костюмов
 {% endblock %}
 
+
 {% block content %}
+<form>
+    <div class="row">
+        <div class="form-group form-check col-md-4">
+            <p><h5>Ценовая категория</h5></p>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Бюджетные
+                    модели</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck2">
+                <label class="custom-control-label" for="customCheck2">Средний
+                    сегмент</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck3">
+                <label class="custom-control-label" for="customCheck3">Премиум
+                    сегмент</label>
+            </div>
+        </div>
+        <div class="form-group form-check col-3">
+            <p><h5>Комплект</h5></p>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck1">
+                <label class="custom-control-label"
+                       for="customCheck1">Пиджак</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck2">
+                <label class="custom-control-label"
+                       for="customCheck2">Брюки</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck3">
+                <label class="custom-control-label"
+                       for="customCheck3">Жилет</label>
+            </div>
+        </div>
+        <div class="form-group form-check col-md-3">
+            <p><h5>Ткань</h5></p>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input"
+                       id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Все из одной ткани</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1"
+               placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Example select</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Example multiple select</label>
+        <select multiple class="form-control" id="exampleFormControlSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1"
+                  rows="3"></textarea>
+    </div>
+</form>
 {% endblock %}

@@ -7,9 +7,20 @@ body {
     flex-direction: column
 }
 
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+    }
+
 #page-wrap {
     flex-grow: 1;
+    margin-top:3px;
     padding-bottom: 20px;
+    }
+
+.sidebar {
+    padding-left: 45px
 }
 
 .navbar {
@@ -23,15 +34,16 @@ footer .navbar {
 footer div {
     margin-bottom: 10px;
     text-align:left;
-    width: 33.33%;
 }
 
-footer ul {
-
+footer a.nav-link {
+    padding-bottom: 0px;
+    padding-top: 0px;
+    text-decoration: underline;
 }
 
 footer li {
-    height: 24px;
+    height: auto;
 }
 
 hr{

@@ -1,3 +1,4 @@
+from flask_wtf import FlaskForm
 from wtforms import Form, StringField, TextAreaField, DecimalField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 
@@ -15,3 +16,6 @@ class RegisterForm(Form):
     phone = StringField('phone')
     email = StringField('email', validators=[DataRequired, Email])
     password = StringField('password')
+
+
+
