@@ -40,7 +40,7 @@ def addresses():
 def fabric_detail(slug):
     fabric = Fabric.query.filter(Fabric.slug == slug).first()
     suits = fabric.suits.all()
-    return render_template('fabric_detail.html', fabric=fabric, suits=sufits)
+    return render_template('fabric_detail.html', fabric=fabric, suits=suits)
 
 
 @app.errorhandler(404)

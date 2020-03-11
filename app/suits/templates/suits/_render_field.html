@@ -1,0 +1,14 @@
+{% macro render_field_checkbox(id, text) %}
+<div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input"
+           id="{{ id }}">
+    <label class="custom-control-label" for="{{ id }}">{{ text }}</label>
+</div>
+{% endmacro %}
+
+{% macro render_field_select(field) %}
+<div class="form-group col-5">
+    <label for="{{ field.name }}">{{ field.label.text }}</label>
+    {{ field(class_="form-control", **kwargs)|safe }}
+</div>
+{% endmacro %}

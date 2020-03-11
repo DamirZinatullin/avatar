@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import render_template, request, redirect, url_for
 from app import db
 from models import Suit, Fabric
-from forms import SuitForm
+from forms import SuitForm, ManSuitConstructorForm
 
 from flask_security import login_required
 
@@ -46,7 +46,8 @@ def create_suit():
 
 @suits.route('/man')
 def man_suits():
-    return render_template('/suits/man.html')
+    form = ManSuitConstructorForm()
+    return render_template('/suits/man.html', form=form)
 
 
 @suits.route('/woman')

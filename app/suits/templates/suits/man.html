@@ -1,3 +1,4 @@
+{% from "suits/_render_field.html" import render_field_checkbox, render_field_select %}
 {% extends 'base.html' %}
 
 {% block title %}
@@ -10,89 +11,52 @@
 
 
 {% block content %}
-<form>
-    <div class="row">
-        <div class="form-group form-check col-md-4">
-            <p><h5>Ценовая категория</h5></p>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Бюджетные
-                    модели</label>
+<form method="POST">
+    <div class="form-group"><p><h5>Фильтры:</h5></p>
+        <div class="row">
+            <div class="form-group form-check col-md-4">
+                <h6>Ценовая категория</h6>
+                {{ render_field_checkbox('budget_segment','Бюджетные
+                модели') }}
+                {{ render_field_checkbox('middle_segment', 'Средний сегмент')
+                }}
+                {{ render_field_checkbox('premium_segment', 'Премиум сегмент')
+                }}
             </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck2">
-                <label class="custom-control-label" for="customCheck2">Средний
-                    сегмент</label>
+            <div class="form-group form-check col-3">
+                <h6>Комплект</h6>
+                {{ render_field_checkbox('jacket', 'Пиджак') }}
+                {{ render_field_checkbox('trousers', 'Брюки') }}
+                {{ render_field_checkbox('vest', 'Жилет') }}
             </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck3">
-                <label class="custom-control-label" for="customCheck3">Премиум
-                    сегмент</label>
+            <div class="form-group form-check col-md-4">
+                <h6>Ткань</h6>
+                {{ render_field_checkbox('same_tissue', 'Все из одной ткани')
+                }}
             </div>
-        </div>
-        <div class="form-group form-check col-3">
-            <p><h5>Комплект</h5></p>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck1">
-                <label class="custom-control-label"
-                       for="customCheck1">Пиджак</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck2">
-                <label class="custom-control-label"
-                       for="customCheck2">Брюки</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck3">
-                <label class="custom-control-label"
-                       for="customCheck3">Жилет</label>
-            </div>
-        </div>
-        <div class="form-group form-check col-md-3">
-            <p><h5>Ткань</h5></p>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Все из одной ткани</label>
-            </div>
-        </div>
 
+        </div>
     </div>
     <div class="form-group">
-        <label for="exampleFormControlInput1">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1"
-               placeholder="name@example.com">
+        <h5>Выбрать аватар</h5>
+        {{ render_field_select(form.avatar_item) }}
     </div>
     <div class="form-group">
-        <label for="exampleFormControlSelect1">Example select</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
+        <h5>Конструктор пиджака:</h5>
+        <div class="row">
+            {{ render_field_select(form.silhouette_of_jacket) }}
+            {{ render_field_select(form.type_of_jacket) }}
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
+    <div class="form-group"><h5>Конструктор брюк:</h5>
+        <div class="row">
+            {{ render_field_select(form.length_of_trousers) }}
+            {{ render_field_select(form.type_of_trousers) }}
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1"
-                  rows="3"></textarea>
+    <div class="form-group"><h5>Ткань:</h5>
+    {% include "suits/_tissue_filter.html" %}
     </div>
+
 </form>
 {% endblock %}
